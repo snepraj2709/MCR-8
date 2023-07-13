@@ -1,13 +1,16 @@
 export const DataReducer = (state, { type, payload }) => {
   switch (type) {
     case "InitialDataFetch": {
-      if (payload) {
-        return {
-          ...state,
-          payload,
-        };
-      }
-      break;
+      return {
+        ...state,
+        allMeetups: payload,
+      };
+    }
+    case "SetFilterData": {
+      return {
+        ...state,
+        filteredMeetups: payload,
+      };
     }
 
     default:
