@@ -19,13 +19,15 @@ export default function EventDetail() {
     eventThumbnail,
     eventDescription,
     hostedBy,
-    eventType,
     isPaid,
     eventTags,
     speakers,
     price,
     additionalInformation,
   } = state.currentMeetup;
+
+  const startTime = new Date(eventStartTime).toDateString();
+  const endTime = new Date(eventEndTime).toDateString();
 
   const registerHandler = () => {
     setRegister(true);
@@ -62,6 +64,14 @@ export default function EventDetail() {
           <b className="text-gray-700">Age Restrictions:</b>
           <p>{additionalInformation?.ageRestrictions}</p>
         </div>
+        <h2 className="text-xl font-bold mb-2">Event Tags</h2>
+        <div className="flex flex-row">
+          {eventTags?.map((tag) => (
+            <div className="bg-orange-300 py-1 px-5 w-auto text-white text-xs rounded-xl m-3">
+              {tag}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="flex flex-col ml-4 w-1/4 m-10">
@@ -71,11 +81,11 @@ export default function EventDetail() {
             <div className="flex flex-col">
               <span className="text-gray-700">
                 <b>Starts at:</b>
-                <p className="text-gray-600">{eventStartTime}</p>
+                <p className="text-gray-600">{startTime}</p>
               </span>
               <span className="text-gray-700">
                 <b>Ends at:</b>
-                <p className="text-gray-600">{eventEndTime}</p>
+                <p className="text-gray-600">{endTime}</p>
               </span>
             </div>
           </div>

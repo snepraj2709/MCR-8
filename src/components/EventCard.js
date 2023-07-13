@@ -4,13 +4,11 @@ import { useData } from "../context/DataContext";
 export const EventCard = ({ meetup }) => {
   const { title, eventStartTime, eventThumbnail, eventType } = meetup;
   const { dispatch } = useData();
-  const newDate = new Date(eventStartTime);
-  //console.log(newDate);
+  const newDate = new Date(eventStartTime).toDateString();
 
   const navigate = useNavigate();
 
   const cardClickhandler = () => {
-    console.log("meetup from card click", meetup);
     dispatch({ type: "SetCurrentEvent", payload: meetup });
     navigate("/event");
   };
@@ -27,7 +25,7 @@ export const EventCard = ({ meetup }) => {
           {eventType}
         </span>
         <p class="bg-white rounded p-2 absolute bottom-2 left-2 text-gray-500 text-sm">
-          {eventStartTime}
+          {newDate}
         </p>
       </div>
       <div class="p-4">

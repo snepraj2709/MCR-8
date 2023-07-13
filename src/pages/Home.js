@@ -5,13 +5,15 @@ import { Header } from "../components/Header";
 import { useData } from "../context/DataContext";
 
 export default function Home() {
-  const { state, searchText } = useData();
+  const { state, searchText, eventFilter } = useData();
 
-  const [allFilteredData, setAllfilteredData] = useState(state?.allMeetups);
+  const [allFilteredData, setAllfilteredData] = useState(
+    state?.filteredMeetups
+  );
 
   useEffect(() => {
     setAllfilteredData(state?.filteredMeetups);
-  }, [searchText]);
+  }, [searchText, eventFilter, state?.filteredMeetups]);
 
   return (
     <div className="m-10">
@@ -25,7 +27,9 @@ export default function Home() {
             <EventCard key={meetup.id} meetup={meetup} />
           ))
         ) : (
-          <h2>No event to display</h2>
+          <h2 className="font-bold text-xl text-center my-10">
+            No event to display
+          </h2>
         )}
       </div>
     </div>

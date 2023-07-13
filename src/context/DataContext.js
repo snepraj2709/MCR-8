@@ -17,19 +17,37 @@ export const DataProvider = ({ children }) => {
     allMeetups: [...meetupData.meetups],
     filteredMeetups: [...meetupData.meetups],
     currentMeetup: {},
-    meetupType: "",
   };
 
   const [state, dispatch] = useReducer(DataReducer, initialData);
 
-  useEffect(() => {
-    const filteredMeetupData = state.allMeetups.filter(
-      (meetup) =>
-        (meetup?.title &&
-          meetup.title.toLowerCase().includes(searchText?.toLowerCase())) ||
-        (eventFilter !== "" && meetup?.eventType === eventFilter)
-    );
+  const filterEvents = (events, searchText, eventFilter) => {
+    const filteredEvents = events.filter((event) => {
+      if (eventFilter !== "" && event.eventType !== eventFilter) {
+        return false;
+      }
+      const lowercaseSearchText = searchText.toLowerCase();
+      const lowercaseTitle = event.title.toLowerCase();
+      const lowercaseTags = event.eventTags.map((tag) => tag.toLowerCase());
 
+      if (lowercaseTitle.includes(lowercaseSearchText)) {
+        return true;
+      }
+
+      if (lowercaseTags.some((tag) => tag.includes(lowercaseSearchText))) {
+        return true;
+      }
+      return false;
+    });
+    return filteredEvents;
+  };
+
+  useEffect(() => {
+    const filteredMeetupData = filterEvents(
+      state?.allMeetups,
+      searchText,
+      eventFilter
+    );
     dispatch({ type: "SetFilterData", payload: filteredMeetupData });
   }, [searchText, eventFilter, state.allMeetups]);
 
