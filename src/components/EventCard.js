@@ -1,11 +1,23 @@
+import { useNavigate } from "react-router-dom";
+import { useData } from "../context/DataContext";
+
 export const EventCard = ({ meetup }) => {
   const { title, eventStartTime, eventThumbnail, eventType } = meetup;
+  const { dispatch } = useData();
   const newDate = new Date(eventStartTime);
   console.log(newDate);
 
+  const navigate = useNavigate();
+
+  const cardClickhandler = () => {
+    console.log("meetup from card click", meetup);
+    dispatch({ type: "SetCurrentEvent", payload: meetup });
+    navigate("/event");
+  };
+
   return (
     <div class="w-64 bg-white rounded-lg shadow-md overflow-hidden cursor-pointer m-5">
-      <div class="relative">
+      <div class="relative" onClick={cardClickhandler}>
         <img
           class="w-full h-48 object-cover"
           src={eventThumbnail}

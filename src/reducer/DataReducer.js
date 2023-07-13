@@ -13,6 +13,14 @@ export const DataReducer = (state, { type, payload }) => {
       };
     }
 
+    case "SetCurrentEvent": {
+      console.log(payload);
+      return {
+        ...state,
+        currentMeetup: payload,
+      };
+    }
+
     default:
       return state;
   }
