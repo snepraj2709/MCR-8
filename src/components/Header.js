@@ -17,7 +17,7 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch({ type: "SetFilterData", payload: filteredMeetupData });
-  }, []);
+  }, [searchText]);
 
   // console.log(filteredMeetupData);
 
