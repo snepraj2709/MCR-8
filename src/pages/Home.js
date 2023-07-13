@@ -5,17 +5,18 @@ import { useData } from "../context/DataContext";
 
 export default function Home() {
   const { state } = useData();
+
   return (
     <div className="m-10">
       <Header />
       <hr />
       <FilterBar />
       <hr />
-      {state?.filteredMeetups?.map((meetup) => (
-        <div className="grid grid-cols-3 gap-4">
-          <EventCard meetup={meetup} />
-        </div>
-      ))}
+      <div className="grid grid-cols-3 gap-4">
+        {state?.filteredMeetups?.map((meetup) => (
+          <EventCard key={meetup.id} meetup={meetup} />
+        ))}
+      </div>
     </div>
   );
 }

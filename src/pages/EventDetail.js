@@ -109,7 +109,7 @@ export default function EventDetail() {
               className="bg-blue-500 text-white rounded py-2 px-4"
               onClick={() => setRegister(true)}>
               {register ? (
-                <button disabled={true}>Already RSVP</button>
+                <button disabled={!register}>Already RSVP</button>
               ) : (
                 <button>RSVP</button>
               )}
