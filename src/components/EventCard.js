@@ -5,7 +5,7 @@ export const EventCard = ({ meetup }) => {
   const { title, eventStartTime, eventThumbnail, eventType } = meetup;
   const { dispatch } = useData();
   const newDate = new Date(eventStartTime);
-  console.log(newDate);
+  //console.log(newDate);
 
   const navigate = useNavigate();
 

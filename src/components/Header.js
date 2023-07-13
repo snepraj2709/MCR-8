@@ -1,25 +1,8 @@
-import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { useData } from "../context/DataContext";
 
 export const Header = () => {
-  const { state, dispatch } = useData();
-
-  const [searchText, setSearchText] = useState("");
-
-  const filteredMeetupData = state.allMeetups.filter(
-    (meetup) =>
-      meetup.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      meetup.eventTags.some((tag) =>
-        tag.toLowerCase().includes(searchText.toLowerCase())
-      )
-  );
-
-  useEffect(() => {
-    dispatch({ type: "SetFilterData", payload: filteredMeetupData });
-  }, [searchText]);
-
-  // console.log(filteredMeetupData);
+  const { searchText, setSearchText } = useData();
 
   return (
     <div className="flex flex-row justify-between m-4">
