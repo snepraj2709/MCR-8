@@ -6,13 +6,13 @@ import { useData } from "../context/DataContext";
 export default function Home() {
   const { state } = useData();
   return (
-    <div>
+    <div className="m-10">
       <Header />
       <hr />
       <FilterBar />
       <hr />
       {state?.filteredMeetups?.map((meetup) => (
-        <div className="flex flex-row">
+        <div className="grid grid-cols-2 gap-4">
           <EventCard meetup={meetup} />
         </div>
       ))}
