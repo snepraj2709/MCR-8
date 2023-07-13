@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useData } from "../context/DataContext";
 import { BiTime } from "react-icons/bi";
 import { CiLocationOn } from "react-icons/ci";
 import { FaRupeeSign } from "react-icons/fa";
 import { SpeakerCard } from "../components/SpeakerCard";
-import { useState } from "react";
+import RegisterModal from "../components/RegisterModal";
 
 export default function EventDetail() {
   const [register, setRegister] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const { state } = useData();
   const {
     title,
@@ -25,16 +27,25 @@ export default function EventDetail() {
     additionalInformation,
   } = state.currentMeetup;
 
+  const registerHandler = () => {
+    setRegister(true);
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+  };
+
   return (
-    <div className="flex flex-row bg-white rounded-lg shadow-md p-4">
-      <div className="flex flex-col">
+    <div className="flex flex-row bg-white rounded-lg shadow-md p-4 justify-center">
+      <div className="flex flex-col w-1/2 m-10">
         <h1 className="text-3xl font-bold mb-2">{title}</h1>
         <span className="text-gray-600 mb-4">
           Hosted By: <b>{hostedBy}</b>
         </span>
         <div className="aspect-w-16 aspect-h-9 mb-4">
           <img
-            className="object-cover rounded w-half h-60"
+            className="object-cover rounded w-full h-full"
             src={eventThumbnail}
             alt={title}
           />
@@ -53,7 +64,7 @@ export default function EventDetail() {
         </div>
       </div>
 
-      <div className="flex flex-col ml-4">
+      <div className="flex flex-col ml-4 w-1/4 m-10">
         <div className="flex flex-col mb-4">
           <div className="flex flex-row items-center mb-2">
             <BiTime className="text-gray-600 mr-2" />
@@ -107,12 +118,19 @@ export default function EventDetail() {
           <div>
             <div
               className="bg-blue-500 text-white rounded py-2 px-4"
-              onClick={() => setRegister(true)}>
+              onClick={registerHandler}>
               {register ? (
                 <button disabled={!register}>Already RSVP</button>
               ) : (
                 <button>RSVP</button>
               )}
+            </div>
+            <div>
+              <RegisterModal
+                isOpen={openModal}
+                onClose={closeModal}
+                registerEvent={setRegister}
+              />
             </div>
           </div>
         </div>

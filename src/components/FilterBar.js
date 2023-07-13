@@ -21,15 +21,17 @@ export const FilterBar = () => {
 
   const changeFilterHandler = (e) => {
     const selectedEventFilter = e.target.value;
-    setEventFilter(e.target.value);
+    setEventFilter(selectedEventFilter);
 
-    const filteredMeetupsByType = state.allMeetups.filter(
-      (meetup) => meetup.eventType === selectedEventFilter
-    );
+    let filteredMeetups = state.allMeetups;
 
-    console.log("filteredMeetupsByType", filteredMeetupsByType);
+    if (selectedEventFilter !== "Both") {
+      filteredMeetups = filteredMeetups.filter(
+        (meetup) => meetup.eventType === selectedEventFilter
+      );
+    }
 
-    dispatch({ type: "SetFilterData", payload: filteredMeetupsByType });
+    dispatch({ type: "SetFilterData", payload: filteredMeetups });
   };
 
   return (
