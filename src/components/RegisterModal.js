@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const RegisterModal = ({ isOpen, onClose, registerEvent }) => {
+const RegisterModal = ({ isOpen, onClose, registerEvent, paid }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -8,10 +8,6 @@ const RegisterModal = ({ isOpen, onClose, registerEvent }) => {
     e.preventDefault();
     onClose();
     registerEvent(true);
-    // Handle form submission here
-    // You can access the name and email values using the `name` and `email` state variables
-    // Perform any necessary validation or API calls
-    // Close the modal or show success message
   };
 
   return (
@@ -49,7 +45,7 @@ const RegisterModal = ({ isOpen, onClose, registerEvent }) => {
               required
             />
             <p className="text-xs text-gray-500 mt-1">
-              You have to make payment at the venue
+              {paid && "*You have to make payment at the venue"}
             </p>
           </div>
           <button

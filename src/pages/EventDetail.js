@@ -117,21 +117,28 @@ export default function EventDetail() {
           ))}
           <div>
             <div
-              className="bg-blue-500 text-white rounded py-2 px-4"
+              className="bg-blue-500 text-white rounded py-2 px-4 text-center"
               onClick={registerHandler}>
               {register ? (
-                <button disabled={!register}>Already RSVP</button>
+                <button
+                  disabled={!register}
+                  className="disabled:bg-gray-500 disabled:cursor-not-allowed">
+                  Already RSVP
+                </button>
               ) : (
                 <button>RSVP</button>
               )}
             </div>
-            <div>
-              <RegisterModal
-                isOpen={openModal}
-                onClose={closeModal}
-                registerEvent={setRegister}
-              />
-            </div>
+            {register && (
+              <div>
+                <RegisterModal
+                  isOpen={openModal}
+                  onClose={closeModal}
+                  registerEvent={setRegister}
+                  paid={isPaid}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
